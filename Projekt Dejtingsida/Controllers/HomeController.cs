@@ -15,16 +15,22 @@ namespace Projekt_Dejtingsida.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "About us";
 
-            return View();
+			return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Contact page.";
 
             return View();
         }
+		public ActionResult Search() 
+		{
+			ViewBag.Message = "Search page.";
+
+			return View();
+		}
     }
 }

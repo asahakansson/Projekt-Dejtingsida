@@ -21,6 +21,7 @@ namespace Projekt_Dejtingsida.Controllers
 
             return View(new ProfileViewModels
             {
+                UserID = currentProfile.UserID,
                 FirstName = currentProfile.FirstName,
                 LastName = currentProfile.LastName,
                 BirthDate = currentProfile.BirthDate,
@@ -47,8 +48,22 @@ namespace Projekt_Dejtingsida.Controllers
             profileContext.SaveChanges();
 
             return RedirectToAction("Index", "Profile");
-
+        }
+        [Route("Profile/ShowProfile")]
+        [HttpGet]
+        public ActionResult ShowProfile(string id)
+        {
+            var ctx = new ProfileDbContext();
+            var userInfo = ctx.Profiles.FirstOrDefault(p => p.UserID == id);
+            return View(new ProfileViewModels
+            {
+                FirstName = userInfo.FirstName,
+                LastName = userInfo.LastName,
+                BirthDate = userInfo.BirthDate,
+                ProfileURL = userInfo.ProfileURL,
+                Description = userInfo.Description,
+                Location = userInfo.Location
+            });
         }
     }
-
 }

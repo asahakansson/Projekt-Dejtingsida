@@ -7,6 +7,7 @@ namespace Projekt_Dejtingsida.Models
 {
     public class ProfileViewModels
     {
+        public string UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }

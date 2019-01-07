@@ -1,9 +1,17 @@
 ﻿@model Projekt_Dejtingsida.Models.ProfileViewModels
-@{
-    ViewBag.Title = "Profil";
-}
 
-<h2>@Model.FirstName @Model.LastName</h2>
-<div>
-    @Html.Partial("Update")
-</div>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Welcome @Model.FirstName!</h2>
+<ul class="nav">
+    <li class="nav-item">
+        @Html.ActionLink("» View my profile", "ShowProfile", "Profile", new { id = Model.UserID }, null)
+     </li>
+        <li class="nav-item">
+        <a class="nav-link" href="" ">» Edit my profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">» View pending friend request</a>
+    </li>
+</ul>

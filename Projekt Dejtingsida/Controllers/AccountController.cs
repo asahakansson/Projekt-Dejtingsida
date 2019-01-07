@@ -156,14 +156,20 @@ namespace Projekt_Dejtingsida.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
+                    using (var dbContext = new ProfileDbContext())
+                    {
+                        dbContext.Profiles.Add(new ProfileModels() { UserID = user.Id, BirthDate = DateTime.Now, Description = "Berätta om dig själv", FirstName = "Ditt Förnamn", LastName = "Ditt Efternamn", Location = "Berätta var du finns" });
+                        dbContext.SaveChanges();
+                    }
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Profile" /*, new { id = user.Id } */ );
                 }
                 AddErrors(result);
             }

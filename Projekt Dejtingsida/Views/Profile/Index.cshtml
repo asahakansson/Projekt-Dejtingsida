@@ -1,0 +1,9 @@
+﻿@model Projekt_Dejtingsida.Models.ProfileViewModels
+@{
+    ViewBag.Title = "Profil";
+}
+
+<h2>@Model.FirstName @Model.LastName</h2>
+<div>
+    @Html.Partial("Update")
+</div>

@@ -207,6 +207,7 @@
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\ProfileDbContext.cs" />
     <Compile Include="Models\ProfileModels.cs" />
+    <Compile Include="Models\ProfileViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -271,6 +272,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

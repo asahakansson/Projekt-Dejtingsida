@@ -9,8 +9,9 @@ namespace Projekt_Dejtingsida.Models
     public class FriendRequestModels
     {
         [Key]
-        public string ID { get; set; }
+        public string RequestID { get; set; }
         public string Person1 { get; set; }
         public string Person2 { get; set; }
+
     }
 }

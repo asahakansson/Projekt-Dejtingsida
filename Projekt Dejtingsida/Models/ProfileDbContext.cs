@@ -9,6 +9,9 @@ namespace Projekt_Dejtingsida.Models
         public DbSet<MessageModel> Messages { get; set; }
 
         public DbSet<FriendRequestModels> FriendRequestModels { get; set; }
+
+        public DbSet<FriendModel> Friends { get; set; }
+
         public ProfileDbContext() : base("DefaultConnection") { }
     }
 }

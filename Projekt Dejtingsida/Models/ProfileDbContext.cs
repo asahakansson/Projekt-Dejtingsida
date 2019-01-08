@@ -4,7 +4,7 @@ namespace Projekt_Dejtingsida.Models
 {
     public class ProfileDbContext : DbContext
     {
-        public DbSet<ProfileModels> Profiles { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
 
         public DbSet<MessageModel> Messages { get; set; }
 

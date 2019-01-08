@@ -159,7 +159,7 @@ namespace Projekt_Dejtingsida.Controllers
 
                     using (var dbContext = new ProfileDbContext())
                     {
-                        dbContext.Profiles.Add(new ProfileModels() { UserID = user.Id, BirthDate = DateTime.Now, Description = "Berätta om dig själv", FirstName = "Ditt Förnamn", LastName = "Ditt Efternamn", Location = "Berätta var du finns" });
+                        dbContext.Profiles.Add(new Profile() { UserID = user.Id, BirthDate = DateTime.Now, Description = "Berätta om dig själv", FirstName = "Ditt Förnamn", LastName = "Ditt Efternamn", Location = "Berätta var du finns" });
                         dbContext.SaveChanges();
                     }
 

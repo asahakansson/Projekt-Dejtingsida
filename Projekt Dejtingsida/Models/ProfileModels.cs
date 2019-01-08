@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Projekt_Dejtingsida.Models
 {
-    public class ProfileModels
+    public class Profile
     {
         [Key]
         public string UserID { get; set; }

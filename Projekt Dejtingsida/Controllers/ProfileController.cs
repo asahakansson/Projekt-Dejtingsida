@@ -55,15 +55,27 @@ namespace Projekt_Dejtingsida.Controllers
         {
             var ctx = new ProfileDbContext();
             var userInfo = ctx.Profiles.FirstOrDefault(p => p.UserID == id);
-            return View(new ProfileViewModels
+            if(userInfo == null)
             {
-                FirstName = userInfo.FirstName,
-                LastName = userInfo.LastName,
-                BirthDate = userInfo.BirthDate,
-                ProfileURL = userInfo.ProfileURL,
-                Description = userInfo.Description,
-                Location = userInfo.Location
-            });
+                return RedirectToAction("Error", "Profile");
+            }
+            else { 
+            return View(new ProfileViewModels
+                {
+                    UserID = userInfo.UserID,
+                    FirstName = userInfo.FirstName,
+                    LastName = userInfo.LastName,
+                    BirthDate = userInfo.BirthDate,
+                    ProfileURL = userInfo.ProfileURL,
+                    Description = userInfo.Description,
+                    Location = userInfo.Location
+                });
+            }
+        }
+        [Route("Profile/Error")]
+        public ActionResult Error()
+        {
+            return View();
         }
     }
 }

@@ -11,7 +11,8 @@ namespace Projekt_Dejtingsida.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var Profiles = new ProfileDbContext().Profiles.ToList().Take(3);
+            return View(Profiles);
         }
 
         public ActionResult About()
@@ -30,8 +31,8 @@ namespace Projekt_Dejtingsida.Controllers
 		public ActionResult Search() 
 		{
 			ViewBag.Message = "Search page.";
-
-			return View();
+            var Profiles = new ProfileDbContext().Profiles.ToList();
+            return View(Profiles);
 		}
     }
 }

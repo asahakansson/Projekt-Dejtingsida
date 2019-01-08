@@ -156,10 +156,22 @@ namespace Projekt_Dejtingsida.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
+                    // Here is the default values. Keep in mind, changing these can effect the program.
+                    var dFirstName = "Firstname";
+                    var dLastName = "Lastname";
+                    var dDescription = "Description";
+                    var dLocation = "Location";
+                    // ------------------------ //
                     using (var dbContext = new ProfileDbContext())
                     {
-                        dbContext.Profiles.Add(new Profile() { UserID = user.Id, BirthDate = DateTime.Now, Description = "Berätta om dig själv", FirstName = "Ditt Förnamn", LastName = "Ditt Efternamn", Location = "Berätta var du finns" });
+                        dbContext.Profiles.Add(new Profile() {
+                            UserID = user.Id,
+                            BirthDate = DateTime.Now,
+                            Description = dDescription,
+                            FirstName = dFirstName,
+                            LastName = dLastName,
+                            Location = dLocation
+                        });
                         dbContext.SaveChanges();
                     }
 

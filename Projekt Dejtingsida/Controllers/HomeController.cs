@@ -35,8 +35,9 @@ namespace Projekt_Dejtingsida.Controllers
 			ViewBag.Message = "Search page.";
             var currentUserID = User.Identity.GetUserId();
             var Profiles = new ProfileDbContext().Profiles.Where(
-                    (s => (s.FirstName.Contains(firstname) || firstname == null) &&
-                    (s.LastName.Contains(lastname) || lastname == null) &&
+                    (s => 
+                    (s.FirstName.Contains(firstname) || firstname == null && !(s.FirstName == "Firstname")) &&
+                    (s.LastName.Contains(lastname) || lastname == null && !(s.LastName == "Lastname")) &&
                     (s.Location.Contains(location) || location == null) &&
                     !(s.UserID.Equals(currentUserID))));
             return View(Profiles);

@@ -4,57 +4,57 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Search</h2>
 
+@using (Html.BeginForm("Search", "Home", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    <form>
+    <h3>Search</h3>
+    <div class="form-group">
+        <label for="fname">Firstname</label>
+        @Html.TextBox("Firstname")
+    </div>
+    <div class="form-group">
+        <label for="lname">Lastname</label>
+        @Html.TextBox("Lastname")
+    </div>
+    <div class="form-group">
+        <label for="location">Locaiton</label>
+        @Html.TextBox("Location")
+
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+}
+<hr />
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProfileURL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
+        <th>Firstname</th>
+        <th>Lastname </th>
+        <th>Location</th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BirthDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProfileURL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserID })
-        </td>
-    </tr>
-}
-
+    @if (Model.ToList().Any())
+    {
+        foreach (var item in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Location)</td>
+            <td>
+                @Html.ActionLink("» Visit profile", "ShowProfile", "Profile",
+                    new { id = item.UserID },
+                    new {@class = "btn btn-primary" })
+            </td>
+        </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td>No results.Try again.</td>
+        </tr>
+    }
 </table>
+

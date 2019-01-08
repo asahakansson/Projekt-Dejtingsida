@@ -28,10 +28,16 @@ namespace Projekt_Dejtingsida.Controllers
 
             return View();
         }
-		public ActionResult Search() 
+        [HttpGet]
+		public ActionResult Search(string firstname, string lastname, string location) 
 		{
 			ViewBag.Message = "Search page.";
-            var Profiles = new ProfileDbContext().Profiles.ToList();
+
+            var Profiles = new ProfileDbContext().Profiles.Where(
+                    (s => (s.FirstName.Contains(firstname) || firstname == null) &&
+                    (s.LastName.Contains(lastname) || lastname == null) && 
+                    (s.Location.Contains(location) || location == null))
+                ).ToList();
             return View(Profiles);
 		}
     }

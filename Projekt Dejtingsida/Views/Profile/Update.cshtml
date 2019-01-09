@@ -1,8 +1,10 @@
-﻿@model Projekt_Dejtingsida.Models.ProfileViewModels
+﻿@using Projekt_Dejtingsida.Models
+@model ProfileViewModels
+@*@model Projekt_Dejtingsida.Models.ProfileViewModels*@
 
 <h2>Update your profile</h2>
 
-@using (Html.BeginForm("Edit", "Profile", FormMethod.Post)) {
+@using (Html.BeginForm("Update", "Profile", FormMethod.Post)) { 
 {
     @Html.AntiForgeryToken()
     
@@ -62,4 +64,5 @@
             </div>
         </div>
     </div>
+}
 }

@@ -30,9 +30,9 @@ namespace Projekt_Dejtingsida.Controllers
                 Location = currentProfile.Location
             });
         }
-        [HttpGet]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ProfileViewModels model)
+        public ActionResult Update(ProfileViewModels model)
         {
             var profileContext = new ProfileDbContext();
             var userId = User.Identity.GetUserId();
@@ -47,12 +47,13 @@ namespace Projekt_Dejtingsida.Controllers
 
             profileContext.SaveChanges();
 
-            return RedirectToAction("Index", "Profile");
+            return RedirectToAction("ShowProfile", "Profile");
         }
         [Route("Profile/ShowProfile")]
         [HttpGet]
-        public ActionResult ShowProfile(string id)
+        public ActionResult ShowProfile()
         {
+            var id = User.Identity.GetUserId();
             var ctx = new ProfileDbContext();
             var userInfo = ctx.Profiles.FirstOrDefault(p => p.UserID == id);
             if(userInfo == null)

@@ -9,4 +9,10 @@ namespace Projekt_Dejtingsida.Models
     {
         public List<FriendRequestModels> FriendRequestModels { get; set; }
     }
+    public class RequestSent
+    {
+        public bool Success { get; set; }
+        public string Error { get; set; }
+
+    }
 }

@@ -11,8 +11,8 @@
         <p>(@Html.DisplayFor(modelItem => item.Location))</p>
         <p>@Html.DisplayFor(modelItem => item.Description)</p>
         @Html.ActionLink("» View Profile", "ShowProfile", "Profile",
-        new {id = item.UserID },
-        new {@class = "btn btn-primary" })
+        new { showID = item.UserID },
+        new { @class = "btn btn-primary" })
     </div>
 
     }

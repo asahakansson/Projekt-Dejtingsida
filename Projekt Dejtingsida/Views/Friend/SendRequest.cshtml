@@ -1,0 +1,20 @@
+﻿@model Projekt_Dejtingsida.Models.RequestSent
+@{
+    ViewBag.Title = "SendRequest";
+}
+
+@if (Model.Success)
+{
+    <h3>Request status</h3>
+    <div class="alert alert-success" role="alert">
+        Friend request added.
+    </div>
+}
+else
+{
+    <h3>Request status</h3>
+    <div class="alert alert-danger" role="alert">
+        @Model.Error
+    </div>
+}
+<h3>List of requests..</h3>

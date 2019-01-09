@@ -53,9 +53,9 @@
         @Html.DisplayFor(model => model.Location)
     </dd>
 </dl>
-@if (!(Model.UserID == User.Identity.GetUserId()))
+@if(!(Model.UserID == User.Identity.GetUserId()))
 {
-    @Html.ActionLink("» Add friend", "ShowProfile", "Profile",
-    new { id = Model.UserID },
+    @Html.ActionLink("» Add friend", "SendRequest", "Friend",
+    new { friendID = Model.UserID },
     new {@class = "btn btn-primary" })
 }

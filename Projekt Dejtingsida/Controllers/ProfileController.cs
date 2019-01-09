@@ -16,18 +16,18 @@ namespace Projekt_Dejtingsida.Controllers
         {
             var profileContext = new ProfileDbContext();
             var userID = User.Identity.GetUserId();
-            var currentProfile =
+            var showProfile =
                 profileContext.Profiles.FirstOrDefault(p => p.UserID == userID);
 
             return View(new ProfileViewModels
             {
-                UserID = currentProfile.UserID,
-                FirstName = currentProfile.FirstName,
-                LastName = currentProfile.LastName,
-                BirthDate = currentProfile.BirthDate,
-                ProfileURL = currentProfile.ProfileURL,
-                Description = currentProfile.Description,
-                Location = currentProfile.Location
+                UserID = showProfile.UserID,
+                FirstName = showProfile.FirstName,
+                LastName = showProfile.LastName,
+                BirthDate = showProfile.BirthDate,
+                ProfileURL = showProfile.ProfileURL,
+                Description = showProfile.Description,
+                Location = showProfile.Location
             });
         }
         [HttpPost]
@@ -47,15 +47,14 @@ namespace Projekt_Dejtingsida.Controllers
 
             profileContext.SaveChanges();
 
-            return RedirectToAction("ShowProfile", "Profile");
+            return RedirectToAction("ShowProfile", "Profile", new { showID = userId });
         }
         [Route("Profile/ShowProfile")]
         [HttpGet]
-        public ActionResult ShowProfile()
+        public ActionResult ShowProfile(string showID)
         {
-            var id = User.Identity.GetUserId();
             var ctx = new ProfileDbContext();
-            var userInfo = ctx.Profiles.FirstOrDefault(p => p.UserID == id);
+            var userInfo = ctx.Profiles.FirstOrDefault(p => p.UserID == showID);
             if(userInfo == null)
             {
                 return RedirectToAction("Error", "Profile");

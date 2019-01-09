@@ -18,37 +18,44 @@ namespace Projekt_Dejtingsida.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult SendRequest(string friendID)
+        public ActionResult RequestList(string friendID)
         {
             var ctx = new ProfileDbContext();
             var currentID = User.Identity.GetUserId();
             // A few diffrent validation
-            // First check if an request is already made
-            if(!(ctx.FriendRequestModels.Any(f => 
-            (f.Person1 == currentID && f.Person2 == friendID) ||
-            (f.Person1 == friendID && f.Person2 == currentID)
-            ))){
-                // Then we check if the users are already friends
-                if(!(ctx.Friends.Any(f =>
+            // First we check that the friendID isnt null and it exist.
+            var friendExist = ctx.Profiles.Any(p => p.UserID == friendID);
+            if ((!(friendID == null)) && friendExist) {
+                // Then check if an request is already made
+                if (!(ctx.FriendRequestModels.Any(f => 
                 (f.Person1 == currentID && f.Person2 == friendID) ||
                 (f.Person1 == friendID && f.Person2 == currentID)
                 ))){
-                    ctx.FriendRequestModels.Add(new FriendRequestModels
+                    // Then we check if the users are already friends
+                    if(!(ctx.Friends.Any(f =>
+                    (f.Person1 == currentID && f.Person2 == friendID) ||
+                    (f.Person1 == friendID && f.Person2 == currentID)))){
+                        ctx.FriendRequestModels.Add(new FriendRequestModels
+                        {
+                            Person1 = currentID,
+                            Person2 = friendID
+                        });
+                        ctx.SaveChanges();
+                        return View(new RequestSent { Success = true });
+                    }
+                    else
                     {
-                        Person1 = currentID,
-                        Person2 = friendID
-                    });
-                    ctx.SaveChanges();
-                    return View(new RequestSent { Success = true });
+                        return View(new RequestSent { Success = false, Error = "Already friends" });
+                    }
                 }
                 else
                 {
-                    return View(new RequestSent { Success = false, Error = "Already friends" });
+                    return View(new RequestSent { Success = false, Error = "Request is already sent" });
                 }
             }
             else
             {
-                return View(new RequestSent { Success = false, Error = "Request is already sent" });
+                return View(new RequestSent { Success = false, Error = "Something went wrong, please try again" });
             }
         }
     }

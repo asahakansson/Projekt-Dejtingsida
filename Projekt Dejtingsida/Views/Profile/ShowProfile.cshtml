@@ -55,7 +55,7 @@
 </dl>
 @if(!(Model.UserID == User.Identity.GetUserId()))
 {
-    @Html.ActionLink("» Add friend", "SendRequest", "Friend",
+    @Html.ActionLink("» Add friend", "RequestList", "Friend",
     new { friendID = Model.UserID },
     new {@class = "btn btn-primary" })
 }

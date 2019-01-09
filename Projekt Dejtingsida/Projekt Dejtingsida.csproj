@@ -301,7 +301,7 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Profile\Error.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
-    <Content Include="Views\Friend\SendRequest.cshtml" />
+    <Content Include="Views\Friend\RequestList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

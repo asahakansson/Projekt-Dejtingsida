@@ -13,6 +13,16 @@ namespace Projekt_Dejtingsida.Models
     {
         public bool Success { get; set; }
         public string Error { get; set; }
+    }
+    public class FriendRequestList
+    {
+        public string ID { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
 
+    }
+    public class RequstList
+    {
+        public List<FriendRequestList> FriendRequestLists { get; set; }
     }
 }

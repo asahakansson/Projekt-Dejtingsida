@@ -9,7 +9,7 @@ namespace Projekt_Dejtingsida.Models
     public class FriendModel
     {
         [Key]
-        public int ContactId { get; set; }
+        public int Id { get; set; }
         public string Person1 { get; set; }
         public string Person2 { get; set; }
     }

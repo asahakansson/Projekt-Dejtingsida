@@ -78,5 +78,9 @@ namespace Projekt_Dejtingsida.Controllers
         {
             return View();
         }
+        public ActionResult Edit()
+        {
+            return View();
+        }
     }
 }

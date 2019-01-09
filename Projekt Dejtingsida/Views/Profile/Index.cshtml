@@ -8,11 +8,11 @@
     <li class="nav-item">
         @Html.ActionLink("» View my profile", "ShowProfile", "Profile", new { id = Model.UserID }, null)
      </li>
-        <li class="nav-item">
-        <a class="nav-link" href="" ">» Edit my profile</a>
-            </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">» View pending friend request</a>
+        @Html.ActionLink("» Edit", "Edit", "Profile", new { id = Model.UserID }, null)
+        @*<a class="nav-link" href="" ">» Edit my profile</a>*@
     </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">» View pending friend request</a>
+        </li>
 </ul>
-@Html.Partial("Update")

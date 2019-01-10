@@ -2,6 +2,7 @@
 using Projekt_Dejtingsida.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -38,10 +39,11 @@ namespace Projekt_Dejtingsida.Controllers
             var userId = User.Identity.GetUserId();
             var currentProfile =
                 profileContext.Profiles.FirstOrDefault(p => p.UserID == userId);
+          
             currentProfile.FirstName = model.FirstName;
             currentProfile.LastName = model.LastName;
             currentProfile.BirthDate = model.BirthDate;
-            currentProfile.ProfileURL = model.ProfileURL;
+            //currentProfile.ProfileURL = model.ProfileURL;
             currentProfile.Description = model.Description;
             currentProfile.Location = model.Location;
 
@@ -80,6 +82,30 @@ namespace Projekt_Dejtingsida.Controllers
         public ActionResult Edit()
         {
             return View();
+        }
+        public ActionResult ChangePicture(HttpPostedFileBase File)
+        {
+
+            if (File != null && File.ContentLength > 0)
+            {
+                var NameOfFile = Path.GetFileName(File.FileName);
+                string FilePath = Path.Combine(Server.MapPath("~/Images/"), NameOfFile);
+                File.SaveAs(FilePath);
+
+                var pdb = new ProfileDbContext();
+                var userId = User.Identity.GetUserId();
+                var currentProfile =
+                    pdb.Profiles.FirstOrDefault(p => p.UserID == userId);
+                currentProfile.ProfileURL = FilePath;
+                pdb.SaveChanges();
+
+                return RedirectToAction("ShowProfile", "Profile", new { showID = userId });
+               
+            }
+            else
+            {
+                return RedirectToAction("Error", "Profile");
+            }
         }
     }
 }

@@ -222,6 +222,10 @@
     <Compile Include="Migrations\201901091459341_FixatID.Designer.cs">
       <DependentUpon>201901091459341_FixatID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901101455436_Uppdatering.cs" />
+    <Compile Include="Migrations\201901101455436_Uppdatering.Designer.cs">
+      <DependentUpon>201901101455436_Uppdatering.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FriendModel.cs" />
@@ -304,9 +308,11 @@
     <Content Include="Views\Friend\Index.cshtml" />
     <Content Include="Views\Friend\OutgoingRequest.cshtml" />
     <Content Include="Views\Friend\IncommingRequest.cshtml" />
+    <Content Include="Views\Profile\ChangePicture.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -336,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901091459341_FixatID.resx">
       <DependentUpon>201901091459341_FixatID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901101455436_Uppdatering.resx">
+      <DependentUpon>201901101455436_Uppdatering.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

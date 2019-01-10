@@ -88,7 +88,10 @@ namespace Projekt_Dejtingsida.Controllers
 
             if (File != null && File.ContentLength > 0)
             {
-                var NameOfFile = Path.GetFileName(File.FileName);
+                var NoExtension = Path.GetFileNameWithoutExtension(File.FileName);
+                var Extension = Path.GetExtension(File.FileName);
+                var NameOfFile = NoExtension + DateTime.Now.ToString("yyyy-MM-dd-fff") + Extension;
+                var NameOfPath = "/Images/" + NameOfFile;
                 string FilePath = Path.Combine(Server.MapPath("~/Images/"), NameOfFile);
                 File.SaveAs(FilePath);
 
@@ -96,7 +99,7 @@ namespace Projekt_Dejtingsida.Controllers
                 var userId = User.Identity.GetUserId();
                 var currentProfile =
                     pdb.Profiles.FirstOrDefault(p => p.UserID == userId);
-                currentProfile.ProfileURL = FilePath;
+                currentProfile.ProfileURL = NameOfPath;
                 pdb.SaveChanges();
 
                 return RedirectToAction("ShowProfile", "Profile", new { showID = userId });

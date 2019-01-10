@@ -22,13 +22,6 @@ namespace Projekt_Dejtingsida.Controllers
 
 			return View();
         }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Contact page.";
-
-            return View();
-        }
         [HttpGet]
 		public ActionResult Search(string firstname, string lastname, string location) 
 		{

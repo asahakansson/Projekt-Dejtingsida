@@ -58,5 +58,38 @@ namespace Projekt_Dejtingsida.Controllers
                 return View(new RequestSent { Success = false, Error = "Something went wrong, please try again" });
             }
         }
+        public ActionResult OutgoingRequest()
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            // Get a list of all friend requests made by current user.
+            var listOfRequests = ctx.FriendRequestModels.Where(f => f.Person1 == currentUser);
+            // Get a list of all profiles
+            var listOfProfiles = ctx.Profiles.ToList();
+            //var requestList = new RequestList().RequestLists;
+            //if (listOfRequests.Any()) {
+            //    foreach (var request in listOfRequests)
+            //    {
+            //        var user = listOfProfiles.FirstOrDefault(u => u.UserID == request.Person2);
+            //        var addRequest = new FriendRequestList
+            //        {
+            //            Firstname = user.FirstName,
+            //            Lastname = user.LastName
+            //        };
+            //        requestList.Add(addRequest);
+            //    }
+            //    return View(requestList);
+            //}
+            return View(listOfRequests);
+        }
+        public ActionResult IncommingRequest()
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            // Get a list of all friend requests made by current user.
+            var listOfRequests = ctx.FriendRequestModels.Where(f => f.Person2 == currentUser);
+            // Get a list of all profiles
+            return View(listOfRequests);
+        }
     }
 }

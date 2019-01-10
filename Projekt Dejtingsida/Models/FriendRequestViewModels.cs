@@ -16,13 +16,12 @@ namespace Projekt_Dejtingsida.Models
     }
     public class FriendRequestList
     {
-        public string ID { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
 
     }
-    public class RequstList
+    public class RequestList
     {
-        public List<FriendRequestList> FriendRequestLists { get; set; }
+        public List<FriendRequestList> RequestLists { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace Projekt_Dejtingsida.Models
         public string ProfileURL { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
+        
     }
 }

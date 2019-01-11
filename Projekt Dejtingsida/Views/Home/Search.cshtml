@@ -43,9 +43,9 @@
             <td>@Html.DisplayFor(modelItem => item.LastName)</td>
             <td>@Html.DisplayFor(modelItem => item.Location)</td>
             <td>
-                @Html.ActionLink("» Visit profile", "ShowProfile", "Profile",
-                    new { id = item.UserID },
-                    new {@class = "btn btn-primary" })
+                @Html.ActionLink("» View Profile", "ShowProfile", "Profile",
+                new { showID = item.UserID },
+                new { @class = "btn btn-primary" })
             </td>
         </tr>
         }

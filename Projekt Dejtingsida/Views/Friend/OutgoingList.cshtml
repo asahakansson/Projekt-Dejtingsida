@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Projekt_Dejtingsida.Models.FriendRequestList>
+
+@if(!(Model == null)){ 
+    <table class="table">
+    <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Profile</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @item.Firstname
+        </td>
+        <td>
+            @item.Lastname
+        </td>
+        <td>
+            @Html.ActionLink("» View Profile", "ShowProfile", "Profile",
+            new { showID = item.Id },
+            new { @class = "btn btn-primary" })
+        </td>
+        <td>Delete</td>
+    </tr>
+    }
+    </table>
+}
+else{
+        <h3>You have no outgoing requests.</h3>
+}

@@ -58,38 +58,70 @@ namespace Projekt_Dejtingsida.Controllers
                 return View(new RequestSent { Success = false, Error = "Something went wrong, please try again" });
             }
         }
-        public ActionResult OutgoingRequest()
+        public ActionResult IncommingList()
         {
             var ctx = new ProfileDbContext();
-            var currentUser = User.Identity.GetUserId();
-            // Get a list of all friend requests made by current user.
-            var listOfRequests = ctx.FriendRequestModels.Where(f => f.Person1 == currentUser);
-            // Get a list of all profiles
+            var currentID = User.Identity.GetUserId();
+            var listOfRequests = ctx.FriendRequestModels.Where(f => f.Person2 == currentID);
             var listOfProfiles = ctx.Profiles.ToList();
-            //var requestList = new RequestList().RequestLists;
-            //if (listOfRequests.Any()) {
-            //    foreach (var request in listOfRequests)
-            //    {
-            //        var user = listOfProfiles.FirstOrDefault(u => u.UserID == request.Person2);
-            //        var addRequest = new FriendRequestList
-            //        {
-            //            Firstname = user.FirstName,
-            //            Lastname = user.LastName
-            //        };
-            //        requestList.Add(addRequest);
-            //    }
-            //    return View(requestList);
-            //}
-            return View(listOfRequests);
+            List<FriendRequestList> listToSend = new List<FriendRequestList>();
+
+            foreach(var u in listOfRequests)
+            {
+                var AddId = u.Person1;
+                var User = listOfProfiles.FirstOrDefault(p => p.UserID == AddId);
+
+                var AddFname = User.FirstName;
+                var AddLName = User.LastName;
+
+                var AddThis = new FriendRequestList
+                {
+                    Id = AddId,
+                    Firstname = AddFname,
+                    Lastname = AddLName
+                };
+                listToSend.Add(AddThis);
+            }
+            if (listToSend.Any()) { 
+                return View(listToSend);
+            }
+            else
+            {
+                return View();
+            }
         }
-        public ActionResult IncommingRequest()
+        public ActionResult OutgoingList()
         {
             var ctx = new ProfileDbContext();
-            var currentUser = User.Identity.GetUserId();
-            // Get a list of all friend requests made by current user.
-            var listOfRequests = ctx.FriendRequestModels.Where(f => f.Person2 == currentUser);
-            // Get a list of all profiles
-            return View(listOfRequests);
+            var currentID = User.Identity.GetUserId();
+            var listOfRequests = ctx.FriendRequestModels.Where(f => f.Person1 == currentID);
+            var listOfProfiles = ctx.Profiles.ToList();
+            List<FriendRequestList> listToSend = new List<FriendRequestList>();
+
+            foreach (var u in listOfRequests)
+            {
+                var AddId = u.Person2;
+                var User = listOfProfiles.FirstOrDefault(p => p.UserID == AddId);
+
+                var AddFname = User.FirstName;
+                var AddLName = User.LastName;
+
+                var AddThis = new FriendRequestList
+                {
+                    Id = AddId,
+                    Firstname = AddFname,
+                    Lastname = AddLName
+                };
+                listToSend.Add(AddThis);
+            }
+            if (listToSend.Any())
+            {
+                return View(listToSend);
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

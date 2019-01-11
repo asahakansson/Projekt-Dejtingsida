@@ -19,10 +19,17 @@
                 </td>
                 <td>
                     @Html.ActionLink("» View Profile", "ShowProfile", "Profile",
-                    new { showID = item.Id },
+                    new { showID = item.UserId },
                     new { @class = "btn btn-primary" })
                 </td>
-                <td>Accept/Decline</td>
+                <td>
+                   #@item.Id - 
+                    @Html.ActionLink("Accept", "RequestRespone", "Friend",
+                    new { requestID = item.Id, acceptRequest = true }, null)
+                    /
+                    @Html.ActionLink("Decline", "RequestRespone", "Friend",
+                    new { requestID = item.Id, acceptRequest = false }, null)
+                </td>
             </tr>
         }
     </table>

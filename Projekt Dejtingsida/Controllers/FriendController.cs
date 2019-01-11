@@ -15,7 +15,12 @@ namespace Projekt_Dejtingsida.Controllers
         // GET: Friend
         public ActionResult Index()
         {
-            return View();
+            var ctx = new ProfileDbContext();
+            var currentID = User.Identity.GetUserId();
+            var incommingRequests = ctx.FriendRequestModels.Where(f => f.Person2 == currentID);
+            var outgoingrequests = ctx.FriendRequestModels.Where(f => f.Person1 == currentID);
+            var pending = new PendingRequests { Incomming = incommingRequests.Count(), Outgoing = outgoingrequests.Count()};
+            return View(pending);
         }
         [HttpGet]
         public ActionResult RequestList(string friendID)
@@ -76,7 +81,8 @@ namespace Projekt_Dejtingsida.Controllers
 
                 var AddThis = new FriendRequestList
                 {
-                    Id = AddId,
+                    Id = u.Id,
+                    UserId = AddId,
                     Firstname = AddFname,
                     Lastname = AddLName
                 };
@@ -108,7 +114,8 @@ namespace Projekt_Dejtingsida.Controllers
 
                 var AddThis = new FriendRequestList
                 {
-                    Id = AddId,
+                    Id = u.Id,
+                    UserId = AddId,
                     Firstname = AddFname,
                     Lastname = AddLName
                 };
@@ -123,12 +130,38 @@ namespace Projekt_Dejtingsida.Controllers
                 return View();
             }
         }
+        public ActionResult RemoveRequest(int removeID)
+        {
+            var ctx = new ProfileDbContext();
+            var remove = ctx.FriendRequestModels.FirstOrDefault(f => f.Id == removeID);
+            ctx.FriendRequestModels.Remove(remove);
+            ctx.SaveChanges();
 
-        //public ActionResult FriendList()
-        //{
-        //    var ctx = new ProfileDbContext();
-        //    var currentID = User.Identity.GetUserId();
-        //    return View(FriendList)
-        // }
+            return RedirectToAction("OutgoingList");
+        }
+        public ActionResult RequestRespone(int requestID, bool acceptRequest)
+        {
+            var ctx = new ProfileDbContext();
+            var friendRequest = ctx.FriendRequestModels.FirstOrDefault(f => f.Id == requestID);
+            if (acceptRequest)
+            {
+                var addFriend = new FriendModel { Person1 = friendRequest.Person1, Person2 = friendRequest.Person2 };
+                ctx.Friends.Add(addFriend);
+                ctx.SaveChanges();
+            }
+
+            var remove = ctx.FriendRequestModels.FirstOrDefault(f => f.Id == requestID);
+            ctx.FriendRequestModels.Remove(remove);
+            ctx.SaveChanges();
+
+            return RedirectToAction("IncommingList");
+        }
+        public ActionResult FriendList()
+        {
+            var ctx = new ProfileDbContext();
+            var currentID = User.Identity.GetUserId();
+            var friendList = ctx.Friends.Where(f => f.Person1 == currentID || f.Person2 == currentID);
+            return View(friendList);
+         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Projekt_Dejtingsida.Models.PendingRequests
+@{
     ViewBag.Title = "Contacts";
 }
 <h2>Contact settings </h2>
@@ -7,9 +8,9 @@
         @Html.ActionLink("» Friendlist", "FriendList", "Friend", null)
     </li>
     <li class="nav-item">
-        @Html.ActionLink("» Outgoing", "OutgoingList", "Friend", null)
+        @Html.ActionLink("» Outgoing (" + @Model.Outgoing + ")", "OutgoingList", "Friend", null)
     </li>
     <li class="nav-item">
-        @Html.ActionLink("» Incomming", "IncommingList", "Friend", null)
+        @Html.ActionLink("» Incomming (" + @Model.Incomming + ")", "IncommingList", "Friend", null)
     </li>
 </ul>

@@ -25,4 +25,9 @@ namespace Projekt_Dejtingsida.Models
     {
         public List<FriendRequestList> RequestLists { get; set; }
     }
+    public class PendingRequests
+    {
+        public int Outgoing { get; set; }
+        public int Incomming { get; set; }
+    }
 }

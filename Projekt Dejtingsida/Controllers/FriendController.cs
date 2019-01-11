@@ -15,7 +15,12 @@ namespace Projekt_Dejtingsida.Controllers
         // GET: Friend
         public ActionResult Index()
         {
-            return View();
+            var ctx = new ProfileDbContext();
+            var currentID = User.Identity.GetUserId();
+            var incommingRequests = ctx.FriendRequestModels.Where(f => f.Person2 == currentID);
+            var outgoingrequests = ctx.FriendRequestModels.Where(f => f.Person1 == currentID);
+            var pending = new PendingRequests { Incomming = incommingRequests.Count(), Outgoing = outgoingrequests.Count()};
+            return View(pending);
         }
         [HttpGet]
         public ActionResult RequestList(string friendID)

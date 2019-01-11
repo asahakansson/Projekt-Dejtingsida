@@ -31,10 +31,16 @@ namespace Projekt_Dejtingsida.Controllers
                 Location = showProfile.Location
             });
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(ProfileViewModels model)
         {
+            if (model.BirthDate.Year < 1900 || model.BirthDate.Year > DateTime.Now.Year)
+            {
+                ModelState.AddModelError("BirthDate", "No");
+                return View(model);
+            }
             var profileContext = new ProfileDbContext();
             var userId = User.Identity.GetUserId();
             var currentProfile =
@@ -51,6 +57,7 @@ namespace Projekt_Dejtingsida.Controllers
 
             return RedirectToAction("ShowProfile", "Profile", new { showID = userId });
         }
+
         [Route("Profile/ShowProfile")]
         [HttpGet]
         public ActionResult ShowProfile(string showID)
@@ -74,15 +81,33 @@ namespace Projekt_Dejtingsida.Controllers
                 });
             }
         }
+
         [Route("Profile/Error")]
         public ActionResult Error()
         {
             return View();
         }
+
         public ActionResult Edit()
         {
-            return View();
+            var profileContext = new ProfileDbContext();
+            var userID = User.Identity.GetUserId();
+            var showProfile =
+                profileContext.Profiles.FirstOrDefault(p => p.UserID == userID);
+
+            return View(new ProfileViewModels
+            {
+                UserID = showProfile.UserID,
+                FirstName = showProfile.FirstName,
+                LastName = showProfile.LastName,
+                BirthDate = showProfile.BirthDate,
+                ProfileURL = showProfile.ProfileURL,
+                Description = showProfile.Description,
+                Location = showProfile.Location
+            });
+
         }
+
         public ActionResult ChangePicture(HttpPostedFileBase File)
         {
 

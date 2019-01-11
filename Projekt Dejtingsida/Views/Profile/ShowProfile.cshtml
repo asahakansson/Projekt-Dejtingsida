@@ -4,6 +4,9 @@
     ViewBag.Title = Model.FirstName + " " + Model.LastName;
 }
 <h2>Showing profile</h2>
+
+<img src="@Model.ProfileURL" width="30%" height="30%" />
+
 <dl class="dl-horizontal">
     <dt>
         @Html.DisplayNameFor(model => model.FirstName)
@@ -29,13 +32,13 @@
         @Html.DisplayFor(model => model.BirthDate)
     </dd>
 
-    <dt>
+    @*<dt>
         @Html.DisplayNameFor(model => model.ProfileURL)
     </dt>
 
     <dd>
         @Html.DisplayFor(model => model.ProfileURL)
-    </dd>
+    </dd>*@
 
     <dt>
         @Html.DisplayNameFor(model => model.Description)

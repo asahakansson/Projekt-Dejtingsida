@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Projekt_Dejtingsida.Models.FriendRequestList>
 
-@if(!(Model == null)){ 
+@if(!(Model == null)){
     <table class="table">
     <tr>
         <th>Firstname</th>
@@ -19,10 +19,14 @@
         </td>
         <td>
             @Html.ActionLink("» View Profile", "ShowProfile", "Profile",
-            new { showID = item.Id },
-            new { @class = "btn btn-primary" })
+             new { showID = item.UserId },
+             new { @class = "btn btn-primary" })
         </td>
-        <td>Delete</td>
+        <td>
+            @Html.ActionLink("» Delete", "RemoveRequest", "Friend",
+            new { removeID = item.Id },
+            new { @class = "btn btn-danger"})
+        </td>
     </tr>
     }
     </table>

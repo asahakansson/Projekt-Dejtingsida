@@ -91,5 +91,12 @@ namespace Projekt_Dejtingsida.Controllers
             // Get a list of all profiles
             return View(listOfRequests);
         }
+
+        //public ActionResult FriendList()
+        //{
+        //    var ctx = new ProfileDbContext();
+        //    var currentID = User.Identity.GetUserId();
+        //    return View(FriendList)
+        // }
     }
 }

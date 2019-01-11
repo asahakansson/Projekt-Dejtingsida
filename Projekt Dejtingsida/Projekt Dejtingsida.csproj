@@ -309,6 +309,7 @@
     <Content Include="Views\Friend\OutgoingRequest.cshtml" />
     <Content Include="Views\Friend\IncommingRequest.cshtml" />
     <Content Include="Views\Profile\ChangePicture.cshtml" />
+    <Content Include="Views\Friend\FriendList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

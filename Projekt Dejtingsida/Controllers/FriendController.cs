@@ -123,5 +123,12 @@ namespace Projekt_Dejtingsida.Controllers
                 return View();
             }
         }
+
+        //public ActionResult FriendList()
+        //{
+        //    var ctx = new ProfileDbContext();
+        //    var currentID = User.Identity.GetUserId();
+        //    return View(FriendList)
+        // }
     }
 }

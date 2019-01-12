@@ -165,7 +165,20 @@ namespace Projekt_Dejtingsida.Controllers
             var ctx = new ProfileDbContext();
             var currentID = User.Identity.GetUserId();
             var friendList = ctx.Friends.Where(f => f.Person1 == currentID || f.Person2 == currentID);
-            return View(friendList);
+            var listOfProfiles = ctx.Profiles.ToList();
+            List<FriendListItem> listToSend = new List<FriendListItem>();
+            foreach (var f in friendList)
+            {
+                var profile = listOfProfiles.FirstOrDefault(p => p.UserID == f.Person1 || p.UserID == f.Person2);
+                var friend = new FriendListItem
+                {
+                    UserId = profile.UserID,
+                    Firstname = profile.FirstName,
+                    Lastname = profile.LastName
+                };
+                listToSend.Add(friend);
+            }
+            return View(listToSend);
         }
     }
 }

@@ -16,8 +16,8 @@ namespace Projekt_Dejtingsida.Models
         public string Lastname { get; set; }
 
     }
-    public class FriendList
+    public class FriendLists
     {
-        public List<FriendListItem> FriendListItems { get; set; }
+        public List<FriendListItem> FriendList { get; set; }
     }
 }

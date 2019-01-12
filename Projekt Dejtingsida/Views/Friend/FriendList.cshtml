@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Projekt_Dejtingsida.Models.FriendListItem>
+
+@{
+    ViewBag.Title = "FriendList";
+}
+
+<h2>Friend list</h2>
+
+<p>
+    @Html.ActionLink("Add friends", "Search", "Home")
+</p>
+@if(!(Model.Count() == 0))
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lastname)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lastname)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+                <td>
+                    @Html.ActionLink("View profile", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+<h4>You have no friends in your friend list.</h4>
+}

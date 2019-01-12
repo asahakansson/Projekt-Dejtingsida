@@ -19,7 +19,7 @@ namespace Projekt_Dejtingsida.Controllers
             var currentID = User.Identity.GetUserId();
             var incommingRequests = ctx.FriendRequestModels.Where(f => f.Person2 == currentID);
             var outgoingrequests = ctx.FriendRequestModels.Where(f => f.Person1 == currentID);
-            var pending = new PendingRequests { Incomming = incommingRequests.Count(), Outgoing = outgoingrequests.Count()};
+            var pending = new PendingRequests { Incomming = incommingRequests.Count(), Outgoing = outgoingrequests.Count() };
             return View(pending);
         }
         [HttpGet]
@@ -30,16 +30,19 @@ namespace Projekt_Dejtingsida.Controllers
             // A few diffrent validation
             // First we check that the friendID isnt null and it exist.
             var friendExist = ctx.Profiles.Any(p => p.UserID == friendID);
-            if ((!(friendID == null)) && friendExist) {
+            if ((!(friendID == null)) && friendExist)
+            {
                 // Then check if an request is already made
-                if (!(ctx.FriendRequestModels.Any(f => 
+                if (!(ctx.FriendRequestModels.Any(f =>
                 (f.Person1 == currentID && f.Person2 == friendID) ||
                 (f.Person1 == friendID && f.Person2 == currentID)
-                ))){
+                )))
+                {
                     // Then we check if the users are already friends
-                    if(!(ctx.Friends.Any(f =>
-                    (f.Person1 == currentID && f.Person2 == friendID) ||
-                    (f.Person1 == friendID && f.Person2 == currentID)))){
+                    if (!(ctx.Friends.Any(f =>
+                     (f.Person1 == currentID && f.Person2 == friendID) ||
+                     (f.Person1 == friendID && f.Person2 == currentID))))
+                    {
                         ctx.FriendRequestModels.Add(new FriendRequestModels
                         {
                             Person1 = currentID,
@@ -71,7 +74,7 @@ namespace Projekt_Dejtingsida.Controllers
             var listOfProfiles = ctx.Profiles.ToList();
             List<FriendRequestList> listToSend = new List<FriendRequestList>();
 
-            foreach(var u in listOfRequests)
+            foreach (var u in listOfRequests)
             {
                 var AddId = u.Person1;
                 var User = listOfProfiles.FirstOrDefault(p => p.UserID == AddId);
@@ -88,7 +91,8 @@ namespace Projekt_Dejtingsida.Controllers
                 };
                 listToSend.Add(AddThis);
             }
-            if (listToSend.Any()) { 
+            if (listToSend.Any())
+            {
                 return View(listToSend);
             }
             else
@@ -162,6 +166,6 @@ namespace Projekt_Dejtingsida.Controllers
             var currentID = User.Identity.GetUserId();
             var friendList = ctx.Friends.Where(f => f.Person1 == currentID || f.Person2 == currentID);
             return View(friendList);
-         }
+        }
     }
 }

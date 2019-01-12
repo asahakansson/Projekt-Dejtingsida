@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNet.Identity;
 @model Projekt_Dejtingsida.Models.ProfileViewModels
 @{
-    ViewBag.Title = Model.FirstName + " " + Model.LastName;
+                /**/
+
+                ViewBag.Title = Model.FirstName + " " + Model.LastName;
 }
 <h2>Showing profile</h2>
 
@@ -33,12 +35,12 @@
     </dd>
 
     @*<dt>
-        @Html.DisplayNameFor(model => model.ProfileURL)
-    </dt>
+            @Html.DisplayNameFor(model => model.ProfileURL)
+        </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.ProfileURL)
-    </dd>*@
+        <dd>
+            @Html.DisplayFor(model => model.ProfileURL)
+        </dd>*@
 
     <dt>
         @Html.DisplayNameFor(model => model.Description)
@@ -56,9 +58,32 @@
         @Html.DisplayFor(model => model.Location)
     </dd>
 </dl>
-@if(!(Model.UserID == User.Identity.GetUserId()))
+@if (!(Model.UserID == User.Identity.GetUserId()))
 {
     @Html.ActionLink("» Add friend", "RequestList", "Friend",
     new { friendID = Model.UserID },
     new {@class = "btn btn-primary" })
+
+    <h3>@Model.FirstName's Guestbook </h3>
+    @*<div>
+        @foreach (var list in Model.)
+        {
+
+        }
+    </div>*@
+
+    <form id="addToGuestbook">
+        <div>
+            <button class="btn btn-primary">Add</button>
+        </div>
+    </form>
+
+    @section scripts {
+        <script>
+           $('#addToGuestbook').submit(function (ex)) {
+               ex.preventDefault();
+           }
+        </script>
+
+    }
 }

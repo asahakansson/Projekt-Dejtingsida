@@ -7,6 +7,11 @@ namespace Projekt_Dejtingsida.Models
 {
     public class MessageViewModel
     {
-        public List<MessageModel> Messages { get; set; }
+        public int MessageId { get; set; }
+        public string SenderName { get; set; }
+        public string Reciever { get; set; }
+        public DateTimeOffset SendDate { get; set; }
+        public string MessageText { get; set; }
+
     }
 }

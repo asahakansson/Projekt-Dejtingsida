@@ -29,7 +29,7 @@
                     @Html.DisplayFor(modelItem => item.Lastname)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Delete", "RemoveFriend", "Friend", new { friendID = item.UserId }, new { })
                 </td>
                 <td>
                     @Html.ActionLink("View profile", "ShowProfile", "Profile", new { showID = item.UserId  }, new { })

@@ -169,7 +169,7 @@ namespace Projekt_Dejtingsida.Controllers
             List<FriendListItem> listToSend = new List<FriendListItem>();
             foreach (var f in friendList)
             {
-                var profile = listOfProfiles.FirstOrDefault(p => p.UserID == f.Person1 || p.UserID == f.Person2);
+                var profile = listOfProfiles.FirstOrDefault(p => p.UserID != currentID && (p.UserID == f.Person1 || p.UserID == f.Person2));
                 var friend = new FriendListItem
                 {
                     UserId = profile.UserID,
@@ -179,6 +179,16 @@ namespace Projekt_Dejtingsida.Controllers
                 listToSend.Add(friend);
             }
             return View(listToSend);
+        }
+        public ActionResult RemoveFriend(string friendID)
+        {
+            var ctx = new ProfileDbContext();
+            var currentID = User.Identity.GetUserId();
+            var remove = ctx.Friends.FirstOrDefault(f => f.Person1 == friendID && f.Person2 == currentID || f.Person1 == currentID && f.Person2 == friendID);
+            ctx.Friends.Remove(remove);
+            ctx.SaveChanges();
+
+            return RedirectToAction("FriendList");
         }
     }
 }

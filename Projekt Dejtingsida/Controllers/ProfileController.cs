@@ -38,14 +38,13 @@ namespace Projekt_Dejtingsida.Controllers
         {
             if (model.BirthDate.Year < 1900 || model.BirthDate.Year > DateTime.Now.Year)
             {
-                ModelState.AddModelError("BirthDate", "No");
+                ModelState.AddModelError("BirthDate", "Date not valid");
                 return View(model);
             }
             var profileContext = new ProfileDbContext();
             var userId = User.Identity.GetUserId();
             var currentProfile =
                 profileContext.Profiles.FirstOrDefault(p => p.UserID == userId);
-          
             currentProfile.FirstName = model.FirstName;
             currentProfile.LastName = model.LastName;
             currentProfile.BirthDate = model.BirthDate;

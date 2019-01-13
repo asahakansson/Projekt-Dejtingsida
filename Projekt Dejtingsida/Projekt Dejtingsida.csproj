@@ -235,6 +235,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="Models\MessageViewModel.cs" />
     <Compile Include="Models\ProfileDbContext.cs" />
     <Compile Include="Models\ProfileModels.cs" />
     <Compile Include="Models\ProfileViewModels.cs" />
@@ -311,6 +312,7 @@
     <Content Include="Views\Friend\IncommingList.cshtml" />
     <Content Include="Views\Friend\OutgoingList.cshtml" />
     <Content Include="Views\Friend\FriendList.cshtml" />
+    <Content Include="Views\Profile\AddToGuestBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

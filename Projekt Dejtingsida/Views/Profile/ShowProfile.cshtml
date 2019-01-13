@@ -16,71 +16,71 @@
 @if (!(Model.UserID == User.Identity.GetUserId()))
 {
     @Html.ActionLink("» Add friend", "RequestList", "Friend",
-            new { friendID = Model.UserID },
-            new { @class = "btn btn-primary" })
+                new { friendID = Model.UserID },
+                new { @class = "btn btn-primary" })
 
-    <h3>@Model.FirstName's Guestbook </h3>
+}
 
-    <div class="list-group">
+<h3>@Model.FirstName's Guestbook </h3>
 
-        <div>
-            <ul id="guestbookContents">
-                <li>
-                    <label>Loading...</label>
-                </li>
-            </ul>
-        </div>
+<div class="list-group">
 
-        <div>
-            <form id="addToGuestbook">
-                <input type="text" id="MessageText" name="MessageText" />
-                <input type="text" id="Reciever" name="Reciever" value="@Model.UserID" hidden="hidden" />
-                <input type="text" id="Sender" name="Sender" value="@User.Identity.GetUserId()" hidden="hidden" />
-                <div>
-                    <button class="btn btn-primary">Add</button>
-                </div>
-            </form>
-        </div>
-
+    <div>
+        <ul id="guestbookContents">
+            <li>
+                <label>Loading...</label>
+            </li>
+        </ul>
     </div>
 
-    @section scripts {
-        <script>
-            function read() {
-                $.getJSON("/api/guestbook/list?userId=@Model.UserID")
-                    .done(function (data)
-                    {
-                        var contents = $("#guestbookContents");
-                        contents.empty();
+    <div>
+        <form id="addToGuestbook">
+            <input type="text" id="MessageText" name="MessageText" />
+            <input type="text" id="Reciever" name="Reciever" value="@Model.UserID" hidden="hidden" />
+            <input type="text" id="Sender" name="Sender" value="@User.Identity.GetUserId()" hidden="hidden" />
+            <div>
+                <button class="btn btn-primary">Add</button>
+            </div>
+        </form>
+    </div>
 
-                        data.forEach(function (item) {
-                            var li = $("<li> </li>");
-                            var div = $("<div></div>");
-                            var from = $("<h4></h4> ");
-                            from.text(item.SenderName);
-                            var sendDate = $("<h4></h4> ");
-                            sendDate.text(item.SendDate);
-                            var messageText = $("<p></p> ");
-                            messageText.text(item.MessageText);
-                            div.append(from);
-                            div.append(sendDate);
-                            div.append(messageText);
-                            li.append(div);
-                            $("#guestbookContents").append(li);
-                        });
+</div>
+
+@section scripts {
+    <script>
+        function read() {
+            $.getJSON("/api/guestbook/list?userId=@Model.UserID")
+                .done(function (data)
+                {
+                    var contents = $("#guestbookContents");
+                    contents.empty();
+
+                    data.forEach(function (item) {
+                        var li = $("<li> </li>");
+                        var div = $("<div></div>");
+                        var from = $("<h4></h4> ");
+                        from.text(item.SenderName);
+                        var sendDate = $("<h4></h4> ");
+                        sendDate.text(item.SendDate);
+                        var messageText = $("<p></p> ");
+                        messageText.text(item.MessageText);
+                        div.append(from);
+                        div.append(sendDate);
+                        div.append(messageText);
+                        li.append(div);
+                        $("#guestbookContents").append(li);
                     });
-            };
-
-            $('#addToGuestbook').submit(function (ex, e2) {
-                ex.preventDefault();
-                var form = $(this);
-                var data = form.serialize();
-                $.post({ url: "/api/guestbook/add" }, data)
-                    .then(read);
                 });
+        };
 
-            read();
-        </script>
-    }
+        $('#addToGuestbook').submit(function (ex, e2) {
+            ex.preventDefault();
+            var form = $(this);
+            var data = form.serialize();
+            $.post({ url: "/api/guestbook/add" }, data)
+                .then(read);
+            });
 
+        read();
+    </script>
 }

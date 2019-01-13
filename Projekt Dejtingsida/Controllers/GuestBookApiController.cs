@@ -15,32 +15,31 @@ namespace Projekt_Dejtingsida.Controllers
         [Route("add")]
         public void PushEntry(MessageModel model)
         {
-
+            model.SendDate = DateTimeOffset.Now;
+            var ctx = new ProfileDbContext();
+            ctx.Messages.Add(model);
+            ctx.SaveChanges();
         }
 
         [HttpGet]
         [Route("list")]
         public List<MessageViewModel> GetMessages(string userId)
         {
-            return new List<MessageViewModel>()
-            {
-                new MessageViewModel
-                {
-                    MessageId = 9,
-                    MessageText = "Mupp",
-                    Reciever = "Du",
-                    SenderName = "Klas",
-                    SendDate = DateTimeOffset.Now
-                },
-                new MessageViewModel
-                {
-                    MessageId = 91,
-                    MessageText = "Mupp!!",
-                    Reciever = "Du",
-                    SenderName = "Klas",
-                    SendDate = DateTimeOffset.Now
-                }
-            };
+            var ctx = new ProfileDbContext();
+            var messages = ctx.Messages.Where(m => m.Reciever == userId);
+            var list = messages.Join(ctx.Profiles, m => m.Sender, p => p.UserID, (m, p) => new { m, p })
+                .Select(a =>
+                    new MessageViewModel
+                    {
+                        MessageId = a.m.MessageId,
+                        MessageText = a.m.MessageText,
+                        Reciever = a.m.Reciever,
+                        SenderName = a.p.FirstName + " " + a.p.LastName,
+                        SendDate = a.m.SendDate
+                    }
+                ).ToList();
+
+            return list;
         }
     }
 }

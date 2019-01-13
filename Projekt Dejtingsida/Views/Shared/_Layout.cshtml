@@ -23,7 +23,18 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Profile", "Index", "Profile")</li>
-                    <li>@Html.ActionLink("Contacts", "Index", "Friend")</li>
+                    @{
+                        var linkText = "Contacts";
+
+                        ViewData.TryGetValue("IncomingRequestsCount", out var incomingRequestsCount);
+                        var icr = (int?)incomingRequestsCount;
+
+                        if (icr.HasValue)
+                        {
+                            linkText += $" ({incomingRequestsCount})";
+                        }
+                        <li>@Html.ActionLink(linkText, "Index", "Friend")</li>
+                    }
                     <li>@Html.ActionLink("Search", "Search", "Profile")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                 </ul>

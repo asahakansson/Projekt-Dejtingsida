@@ -303,7 +303,7 @@
     <Content Include="Views\Profile\Update.cshtml" />
     <Content Include="Views\Profile\ShowProfile.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
-    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Profile\Search.cshtml" />
     <Content Include="Views\Profile\Error.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Friend\RequestList.cshtml" />

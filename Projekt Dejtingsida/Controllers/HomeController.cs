@@ -22,18 +22,5 @@ namespace Projekt_Dejtingsida.Controllers
 
 			return View();
         }
-        [HttpGet]
-		public ActionResult Search(string firstname, string lastname, string location) 
-		{
-			ViewBag.Message = "Search page.";
-            var currentUserID = User.Identity.GetUserId();
-            var Profiles = new ProfileDbContext().Profiles.Where(
-                    (s => 
-                    (s.FirstName.Contains(firstname) || firstname == null && !(s.FirstName == "Firstname")) &&
-                    (s.LastName.Contains(lastname) || lastname == null && !(s.LastName == "Lastname")) &&
-                    (s.Location.Contains(location) || location == null) &&
-                    !(s.UserID.Equals(currentUserID))));
-            return View(Profiles);
-		}
     }
 }

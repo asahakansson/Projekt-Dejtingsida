@@ -161,6 +161,7 @@ namespace Projekt_Dejtingsida.Controllers
                     var dLastName = "Lastname";
                     var dDescription = "Description";
                     var dLocation = "Location";
+                    var dURL = "/Images/default_profile.png";
                     // ------------------------ //
                     using (var dbContext = new ProfileDbContext())
                     {
@@ -170,7 +171,8 @@ namespace Projekt_Dejtingsida.Controllers
                             Description = dDescription,
                             FirstName = dFirstName,
                             LastName = dLastName,
-                            Location = dLocation
+                            Location = dLocation,
+                            ProfileURL = dURL
                         });
                         dbContext.SaveChanges();
                     }

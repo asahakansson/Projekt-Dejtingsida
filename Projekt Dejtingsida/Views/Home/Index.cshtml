@@ -2,18 +2,30 @@
 @{
     ViewBag.Title = "Home Page";
 }
+<div class="jumbotron">
+    <h1 class="display-4">Hello, world!</h1>
+    <p class="lead">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla urna, accumsan id efficitur sed, maximus vel libero.
+        Nunc at pulvinar libero.
+    </p>
+    <hr class="my-4">
+    <p>
+        Curabitur semper, tortor at condimentum luctus, justo est pretium justo, vitae facilisis massa augue et tortor.
+        Donec in sem turpis.
+    </p>
+    @Html.ActionLink("» Join us", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = " btn btn-primary btn-lg" })
+</div>
 <div class="row">
     @foreach (var item in Model)
     {
-
     <div class="col-md-4">
         <h3>@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h3>
+        <img src="@Html.DisplayFor(modelItem => item.ProfileURL)" style="height: auto; max-height: 300px; width: 200px;" class="card-img-top" alt="Profile picture of @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)">
         <p>(@Html.DisplayFor(modelItem => item.Location))</p>
         <p>@Html.DisplayFor(modelItem => item.Description)</p>
         @Html.ActionLink("» View Profile", "ShowProfile", "Profile",
         new { showID = item.UserID },
         new { @class = "btn btn-primary" })
     </div>
-
     }
 </div>

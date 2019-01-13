@@ -17,5 +17,6 @@ namespace Projekt_Dejtingsida.Models
         public string Description { get; set; }
         public string Location { get; set; }
         
+
     }
 }

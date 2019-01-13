@@ -1,89 +1,29 @@
 ﻿@using Microsoft.AspNet.Identity;
 @model Projekt_Dejtingsida.Models.ProfileViewModels
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = Model.FirstName + " " + Model.LastName;
+    ViewBag.Title = Model.FirstName + " " + Model.LastName;
 }
-<h2>Showing profile</h2>
-
-<img src="@Model.ProfileURL" width="30%" height="30%" />
-
-<dl class="dl-horizontal">
-    <dt>
-        @Html.DisplayNameFor(model => model.FirstName)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.FirstName)
-    </dd>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.LastName)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.LastName)
-    </dd>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.BirthDate)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.BirthDate)
-    </dd>
-
-    @*<dt>
-            @Html.DisplayNameFor(model => model.ProfileURL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProfileURL)
-        </dd>*@
-
-    <dt>
-        @Html.DisplayNameFor(model => model.Description)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.Description)
-    </dd>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.Location)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.Location)
-    </dd>
-</dl>
-@if (!(Model.UserID == User.Identity.GetUserId()))
+<h2>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h2>
+<div class="card" style="width: 18rem;">
+    <img src="@Model.ProfileURL" style="height: auto; max-height: 300px; width: 200px;" class="card-img-top" alt="Profile picture of @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)">
+    <h5 class="card-title">@Html.DisplayFor(model => model.Location) (@Html.DisplayFor(model => model.BirthDate))</h5>
+    <div class="card-body">
+        <p class="card-text"> @Html.DisplayFor(model => model.Description)</p>
+    </div>
+</div>
+@if(!(Model.UserID == User.Identity.GetUserId()))
 {
     @Html.ActionLink("» Add friend", "RequestList", "Friend",
-    new { friendID = Model.UserID },
-    new {@class = "btn btn-primary" })
+            new { friendID = Model.UserID },
+            new { @class = "btn btn-primary" })
 
     <h3>@Model.FirstName's Guestbook </h3>
-    @*<div>
-        @foreach (var list in Model.)
-        {
+
+    @*@Html.Partial("AddToGuestBook")
+
 
         }
-    </div>*@
-
-    <form id="addToGuestbook">
-        <div>
-            <button class="btn btn-primary">Add</button>
-        </div>
-    </form>
-
-    @section scripts {
-        <script>
-           $('#addToGuestbook').submit(function (ex)) {
-               ex.preventDefault();
-           }
-        </script>
-
-    }
+    *@
 }

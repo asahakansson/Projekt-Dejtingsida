@@ -156,7 +156,7 @@ namespace Projekt_Dejtingsida.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    // Here is the default values. Keep in mind, changing these can effect the program.
+                    // Here is the default values. Keep in mind, changing these will effect the program.
                     var dFirstName = "Firstname";
                     var dLastName = "Lastname";
                     var dDescription = "Description";

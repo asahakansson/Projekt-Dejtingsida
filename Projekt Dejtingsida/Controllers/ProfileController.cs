@@ -61,7 +61,6 @@ namespace Projekt_Dejtingsida.Controllers
             currentProfile.FirstName = model.FirstName;
             currentProfile.LastName = model.LastName;
             currentProfile.BirthDate = model.BirthDate;
-            //currentProfile.ProfileURL = model.ProfileURL;
             currentProfile.Description = model.Description;
             currentProfile.Location = model.Location;
 

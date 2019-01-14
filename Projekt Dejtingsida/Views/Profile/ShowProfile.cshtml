@@ -13,6 +13,7 @@
         <p class="card-text"> @Html.DisplayFor(model => model.Description)</p>
     </div>
 </div>
+<!--Om användaren är inne på sin egen sida döljs knappen för att lägga till vän-->
 @if (!(Model.UserID == User.Identity.GetUserId()))
 {
     @Html.ActionLink("» Add friend", "RequestList", "Friend",
@@ -48,13 +49,14 @@
 
 @section scripts {
     <script>
+        //Visar listan på Messages som den får från ApiControllern
         function read() {
             $.getJSON("/api/guestbook/list?userId=@Model.UserID")
                 .done(function (data)
                 {
                     var contents = $("#guestbookContents");
                     contents.empty();
-
+                    //Skapar element för, och skriver ut varje meddelande
                     data.forEach(function (item) {
                         var li = $("<li> </li>");
                         var div = $("<div></div>");
@@ -72,12 +74,13 @@
                     });
                 });
         };
-
+        //Skickar meddelandeinformationen till ApiControllern
         $('#addToGuestbook').submit(function (ex, e2) {
             ex.preventDefault();
             var form = $(this);
             var data = form.serialize();
             $.post({ url: "/api/guestbook/add" }, data)
+                //Anropar funktionen read, så att det nya meddelandet visas
                 .then(read);
             });
 

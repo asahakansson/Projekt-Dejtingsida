@@ -25,10 +25,11 @@
                     <li>@Html.ActionLink("Profile", "Index", "Profile")</li>
                     @{
                         var linkText = "Contacts";
-
+                        //Försöker hämta värdet på IncomingRequestCount ur ViewData
                         ViewData.TryGetValue("IncomingRequestsCount", out var incomingRequestsCount);
+                        //Castar incomingRequestCount till en nullable int
                         var icr = (int?)incomingRequestsCount;
-
+                        
                         if (icr.HasValue)
                         {
                             linkText += $" ({incomingRequestsCount})";

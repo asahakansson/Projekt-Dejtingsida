@@ -13,6 +13,7 @@ namespace Projekt_Dejtingsida.Controllers
     public class ProfileController : Controller
     {
         // GET: Profile
+        // Startsidan för profil. Skapar en ProfileViewModel här för att kunna skicka vidare till våra Partials.
         public ActionResult Index()
         {
             var profileContext = new ProfileDbContext();
@@ -31,10 +32,13 @@ namespace Projekt_Dejtingsida.Controllers
                 Location = showProfile.Location
             });
         }
+        // Söksidan
         [HttpGet]
         public ActionResult Search(string firstname, string lastname, string location)
         {
             ViewBag.Message = "Search page.";
+            // Vi har 3 sök kriterar som vi använder av oss av.
+            // Användare med förinställda för och efternamn syns inte i resultet.
             var currentUserID = User.Identity.GetUserId();
             var Profiles = new ProfileDbContext().Profiles.Where(
                     (s =>
@@ -69,13 +73,14 @@ namespace Projekt_Dejtingsida.Controllers
 
             return RedirectToAction("ShowProfile", "Profile", new { showID = userId });
         }
-
-        [Route("Profile/ShowProfile")]
+        // Visar profilen
         [HttpGet]
         public ActionResult ShowProfile(string showID)
         {
+            // Tar in ett ID och använder detta för att visa information om användaren.
             var ctx = new ProfileDbContext();
             var userInfo = ctx.Profiles.FirstOrDefault(p => p.UserID == showID);
+            // Kontroll att ID är korrekt.
             if(userInfo == null)
             {
                 return RedirectToAction("Error", "Profile");
@@ -93,13 +98,12 @@ namespace Projekt_Dejtingsida.Controllers
                 });
             }
         }
-
-        [Route("Profile/Error")]
+        // Error view.
         public ActionResult Error()
         {
             return View();
         }
-
+        // För att redigera användardata.
         public ActionResult Edit()
         {
             var profileContext = new ProfileDbContext();

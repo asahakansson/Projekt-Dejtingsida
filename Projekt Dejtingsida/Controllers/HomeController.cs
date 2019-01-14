@@ -10,8 +10,10 @@ namespace Projekt_Dejtingsida.Controllers
 {
     public class HomeController : Controller
     {
+        // Startsidan. 
         public ActionResult Index()
         {
+            // Visar 3 användare från start.
             var Profiles = new ProfileDbContext().Profiles.ToList().Take(3);
             return View(Profiles);
         }

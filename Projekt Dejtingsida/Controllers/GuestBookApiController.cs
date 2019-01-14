@@ -11,6 +11,7 @@ namespace Projekt_Dejtingsida.Controllers
     [RoutePrefix("api/guestbook")]
     public class GuestBookApiController : ApiController
     {
+        //Sparar meddelanden i databasen
         [HttpPost]
         [Route("add")]
         public void PushEntry(MessageModel model)
@@ -20,14 +21,16 @@ namespace Projekt_Dejtingsida.Controllers
             ctx.Messages.Add(model);
             ctx.SaveChanges();
         }
-
+        //Hämtar en lista på meddelanden ur databasen
         [HttpGet]
         [Route("list")]
         public List<MessageViewModel> GetMessages(string userId)
         {
             var ctx = new ProfileDbContext();
             var messages = ctx.Messages.Where(m => m.Reciever == userId);
+            //Tabellerna Messages och Profiles joinas för att namnet på avsändaren ska kunna visas
             var list = messages.Join(ctx.Profiles, m => m.Sender, p => p.UserID, (m, p) => new { m, p })
+                //Produkten av joinen är den nya tabellen a
                 .Select(a =>
                     new MessageViewModel
                     {

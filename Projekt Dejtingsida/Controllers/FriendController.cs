@@ -180,6 +180,7 @@ namespace Projekt_Dejtingsida.Controllers
             }
             return View(listToSend);
         }
+        //Metod för att ta bort person ur vänlista
         public ActionResult RemoveFriend(string friendID)
         {
             var ctx = new ProfileDbContext();

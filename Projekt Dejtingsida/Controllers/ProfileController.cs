@@ -44,10 +44,12 @@ namespace Projekt_Dejtingsida.Controllers
                     !(s.UserID.Equals(currentUserID))));
             return View(Profiles);
         }
+        //Metod som sparar profiluppgifter i databasen
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(ProfileViewModels model)
         {
+            //Vi kontrollerar att födelsedatumet ligger inom spannet 1900 till i år.
             if (model.BirthDate.Year < 1900 || model.BirthDate.Year > DateTime.Now.Year)
             {
                 ModelState.AddModelError("BirthDate", "Date not valid");
@@ -60,7 +62,6 @@ namespace Projekt_Dejtingsida.Controllers
             currentProfile.FirstName = model.FirstName;
             currentProfile.LastName = model.LastName;
             currentProfile.BirthDate = model.BirthDate;
-            //currentProfile.ProfileURL = model.ProfileURL;
             currentProfile.Description = model.Description;
             currentProfile.Location = model.Location;
 
@@ -105,7 +106,7 @@ namespace Projekt_Dejtingsida.Controllers
             var userID = User.Identity.GetUserId();
             var showProfile =
                 profileContext.Profiles.FirstOrDefault(p => p.UserID == userID);
-
+            //Data skickas till vyn för att uppdateringsformuläret ska bli ifyllt med det som finns i databasen
             return View(new ProfileViewModels
             {
                 UserID = showProfile.UserID,
@@ -118,23 +119,30 @@ namespace Projekt_Dejtingsida.Controllers
             });
 
         }
-
+        //Metod för att byta profilbild
         public ActionResult ChangePicture(HttpPostedFileBase File)
         {
-
+            //Vi kollar att det finns en bild att spara
             if (File != null && File.ContentLength > 0)
             {
+                //Hämtar filnamnet utan filändelse
                 var NoExtension = Path.GetFileNameWithoutExtension(File.FileName);
+                //Hämtar filändelsen
                 var Extension = Path.GetExtension(File.FileName);
+                //Lägger ihop de båda, men med nuvarande tidpukt i namnet.
+                //Det görs för att filnamnet ska bli unikt.
                 var NameOfFile = NoExtension + DateTime.Now.ToString("yyyy-MM-dd-fff") + Extension;
+                //Filen där bilderna sparas och filnamnet slås ihop till en sträng
                 var NameOfPath = "/Images/" + NameOfFile;
                 string FilePath = Path.Combine(Server.MapPath("~/Images/"), NameOfFile);
+                //Bilden sparas
                 File.SaveAs(FilePath);
 
                 var pdb = new ProfileDbContext();
                 var userId = User.Identity.GetUserId();
                 var currentProfile =
                     pdb.Profiles.FirstOrDefault(p => p.UserID == userId);
+                //Bildens sökväg sparas i databasen
                 currentProfile.ProfileURL = NameOfPath;
                 pdb.SaveChanges();
 

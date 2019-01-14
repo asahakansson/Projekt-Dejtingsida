@@ -16,6 +16,7 @@
     @Html.ActionLink("» Join us", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = " btn btn-primary btn-lg" })
 </div>
 <div class="row">
+    <!-- Här visar vi 3 medlemmar, för att visa hur de kan se ut. Länkar även till medlemmarnas profil. -->
     @foreach (var item in Model)
     {
     <div class="col-md-4">

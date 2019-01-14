@@ -2,6 +2,7 @@
 @model ProfileViewModels
 
 <h2>Change profile image</h2>
+<!-- Visas forumläret för att byta profilbild. Visar även vilken användaren har just nu. -->
 @using (Html.BeginForm("ChangePicture", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()

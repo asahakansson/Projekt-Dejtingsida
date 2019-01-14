@@ -4,27 +4,29 @@
     ViewBag.Title = "Search";
 }
 
-
+<!-- Söksidan.
+    Här hämtar vi och skickar inforamtion för att kunna genomföra vår sökning.
+    Valt att använda oss av För och efternamn och plats när man söker.-->
 @using (Html.BeginForm("Search", "Profile", FormMethod.Get))
 {
     @Html.AntiForgeryToken()
     <form>
-    <h3>Search</h3>
-    <div class="form-group">
-        <label for="fname">Firstname</label>
-        @Html.TextBox("Firstname")
-    </div>
-    <div class="form-group">
-        <label for="lname">Lastname</label>
-        @Html.TextBox("Lastname")
-    </div>
-    <div class="form-group">
-        <label for="location">Location</label>
-        @Html.TextBox("Location")
+        <h3>Search</h3>
+        <div class="form-group">
+            <label for="fname">Firstname</label>
+            @Html.TextBox("Firstname")
+        </div>
+        <div class="form-group">
+            <label for="lname">Lastname</label>
+            @Html.TextBox("Lastname")
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            @Html.TextBox("Location")
 
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 }
 <hr />
 <table class="table">
@@ -34,24 +36,26 @@
         <th>Location</th>
         <th></th>
     </tr>
+    <!-- Visar vi de man fått som resultat. -->
     @if (Model.ToList().Any())
     {
         foreach (var item in Model)
         {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
-            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
-            <td>@Html.DisplayFor(modelItem => item.Location)</td>
-            <td>
-                @Html.ActionLink("» View Profile", "ShowProfile", "Profile",
-                new { showID = item.UserID },
-                new { @class = "btn btn-primary" })
-            </td>
-        </tr>
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                <td>
+                    @Html.ActionLink("» View Profile", "ShowProfile", "Profile",
+                    new { showID = item.UserID },
+                    new { @class = "btn btn-primary" })
+                </td>
+            </tr>
         }
     }
     else
     {
+        <!-- Visar även om man inte får några träffar. -->
         <tr>
             <td>No results.Try again.</td>
         </tr>

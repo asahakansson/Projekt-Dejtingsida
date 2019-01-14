@@ -3,12 +3,14 @@
 @{
     ViewBag.Title = "Index";
 }
+<!-- Startsidan för Profilsidan.
+    Här kan man välja vad man vill göra. -->
 <h2>Welcome @Model.FirstName!</h2>
 <ul class="nav">
     <li class="nav-item">
         @Html.ActionLink("» View my profile", "ShowProfile", "Profile", new { showID = Model.UserID }, null)
-     </li>
+    </li>
     <li class="nav-item">
         @Html.ActionLink("» Edit", "Edit", "Profile", new { id = Model.UserID }, null)
-    </li>  
+    </li>
 </ul>

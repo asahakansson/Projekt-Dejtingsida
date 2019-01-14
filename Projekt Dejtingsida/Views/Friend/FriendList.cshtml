@@ -5,20 +5,21 @@
 }
 
 <h2>Friend list</h2>
-@if(!(Model.Count() == 0))
+<!-- Kontrollerar om det hämtats några kontakter.-->
+@if (!(Model.Count() == 0))
 {
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Firstname)
+                Firstname
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Lastname)
+                Lastname
             </th>
             <th></th>
             <th></th>
         </tr>
-
+        <!-- Visar kontakterna.-->
         @foreach (var item in Model)
         {
             <tr>
@@ -32,7 +33,7 @@
                     @Html.ActionLink("Delete", "RemoveFriend", "Friend", new { friendID = item.UserId }, new { })
                 </td>
                 <td>
-                    @Html.ActionLink("View profile", "ShowProfile", "Profile", new { showID = item.UserId  }, new { })
+                    @Html.ActionLink("View profile", "ShowProfile", "Profile", new { showID = item.UserId }, new { })
                 </td>
             </tr>
         }
@@ -41,8 +42,10 @@
 }
 else
 {
-<h4>You have no friends in your friend list.</h4>
+    <!-- Visas ett meddelande om man inte har några kontakter-->
+    <h4>You have no friends in your friend list.</h4>
 }
+<!-- Länk för att söka efter kontakter -->
 <p>
     @Html.ActionLink("Add friends", "Search", "Profile")
 </p>

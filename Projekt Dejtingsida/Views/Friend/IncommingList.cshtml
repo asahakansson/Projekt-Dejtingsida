@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Projekt_Dejtingsida.Models.FriendRequestList>
-
-@if(!(Model == null)){
+<!-- Kontrollerar om det finns några inkommande förfrågningar -->
+@if (!(Model == null))
+{
     <table class="table">
         <tr>
             <th>Firstname</th>
@@ -35,5 +36,6 @@
 }
 else
 {
+    <!-- Visar ett meddelande om det inte finns några inkommande förfrågningar-->
     <h3>You have no incomming requests.</h3>
 }

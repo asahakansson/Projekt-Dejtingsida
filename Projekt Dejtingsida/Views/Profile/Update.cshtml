@@ -1,13 +1,13 @@
 ﻿@using Projekt_Dejtingsida.Models
 @model ProfileViewModels
-@*@model Projekt_Dejtingsida.Models.ProfileViewModels*@
 
 <h2>Update your profile</h2>
-
+<!-- Här är koden för att uppdatera sin profil.
+    Vi hämtar en modell av användaren för att kunna visa data på vad använder har för uppgifter just nu. -->
 @using (Html.BeginForm("Update", "Profile", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
